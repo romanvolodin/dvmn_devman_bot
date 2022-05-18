@@ -60,6 +60,8 @@ def main():
         except requests.exceptions.ConnectionError:
             print("No Internet connection")
             sleep(connection_error_sleep_sec)
+        except KeyboardInterrupt:
+            break
 
 
 if __name__ == "__main__":
