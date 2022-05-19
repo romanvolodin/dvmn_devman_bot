@@ -52,9 +52,9 @@ def main():
                 timeout=polling_timeout_sec,
             )
             response.raise_for_status()
-            decoded_response = response.json()
-            params["timestamp"] = decoded_response["last_attempt_timestamp"]
-            bot.send_message(tg_chat_id, format_message(decoded_response))
+            review_result = response.json()
+            params["timestamp"] = review_result["last_attempt_timestamp"]
+            bot.send_message(tg_chat_id, format_message(review_result))
         except requests.exceptions.ReadTimeout:
             continue
         except requests.exceptions.ConnectionError:
