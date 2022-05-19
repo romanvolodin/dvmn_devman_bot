@@ -53,6 +53,11 @@ def main():
             )
             response.raise_for_status()
             review_result = response.json()
+
+            if review_result["status"] == "timeout":
+                params["timestamp"] = review_result["timestamp_to_request"]
+                continue
+
             params["timestamp"] = review_result["last_attempt_timestamp"]
             bot.send_message(tg_chat_id, format_message(review_result))
         except requests.exceptions.ReadTimeout:
