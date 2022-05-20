@@ -28,6 +28,7 @@ def format_message(response):
 
 
 def main():
+    logging.basicConfig(level=logging.DEBUG)
     logging.info("Запущен бот уведомлений о проверках Devman.")
 
     env = Env()
