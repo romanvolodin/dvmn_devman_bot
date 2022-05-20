@@ -1,3 +1,4 @@
+import logging
 from time import sleep
 
 import requests
@@ -27,6 +28,8 @@ def format_message(response):
 
 
 def main():
+    logging.info("Запущен бот уведомлений о проверках Devman.")
+
     env = Env()
     env.read_env()
 
