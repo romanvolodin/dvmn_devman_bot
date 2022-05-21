@@ -6,6 +6,18 @@ from environs import Env
 from telegram import Bot
 
 
+class TelegramLogsHandler(logging.Handler):
+    def __init__(self, token, chat_id):
+        super().__init__()
+        self.bot = Bot(token=token)
+        self.chat_id = chat_id
+
+    def emit(self, record):
+        log_entry = self.format(record)
+        self.bot.send_message(self.chat_id, "Бот упал с ошибкой:")
+        self.bot.send_message(self.chat_id, log_entry)
+
+
 def format_message(response):
     message_template = "Проверили работу «{title}».\n{result}\n{url}"
     messages = []
@@ -28,15 +40,17 @@ def format_message(response):
 
 
 def main():
-    logging.basicConfig(level=logging.DEBUG)
-    logging.info("Запущен бот уведомлений о проверках Devman.")
-
     env = Env()
     env.read_env()
 
     dvmn_token = env.str("DVMN_TOKEN")
     tg_bot_token = env.str("TG_BOT_TOKEN")
     tg_chat_id = env.str("TG_CHAT_ID")
+    logging_level = env.str("LOGGING_LEVEL", "WARNING")
+
+    logging.basicConfig(level=logging_level)
+    logger = logging.getLogger("bot")
+    logger.addHandler(TelegramLogsHandler(tg_bot_token, tg_chat_id))
 
     polling_timeout_sec = 60
     connection_error_sleep_sec = 5
@@ -71,6 +85,8 @@ def main():
             sleep(connection_error_sleep_sec)
         except KeyboardInterrupt:
             break
+        except Exception as err:
+            logger.exception(err)
 
 
 if __name__ == "__main__":
