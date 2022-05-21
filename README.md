@@ -21,6 +21,7 @@
 - `DVMN_TOKEN` — токен для доступа к Devman API.
 - `TG_BOT_TOKEN` — токен бота, который отправлять уведомления.
 - `TG_CHAT_ID` — id чата, куда будут отправляться уведомления.
+- `LOGGING_LEVEL` — уровень сообщений для логирования. По-умолчанию  `WARNING`, т.е. будут логироваться только предупреждения, ошибки и критические ошибки (`WARNING`, `ERROR`, `CRITICAL`). Для посмотра отладочных сообщений поставьте `DEBUG`.
 
 Пример:
 
@@ -28,6 +29,7 @@
 DVMN_TOKEN=5a33ad154500b4efdacc78204317193ec0
 TG_BOT_TOKEN=54217500:AAGcctEBWHWQTMZFUeXFKq4JlZuCrn8
 TG_CHAT_ID=1234567
+LOGGING_LEVEL=DEBUG
 ```
 
 ## Запуск
