@@ -6,6 +6,9 @@ from environs import Env
 from telegram import Bot
 
 
+logger = logging.getLogger(__name__)
+
+
 class TelegramLogsHandler(logging.Handler):
     def __init__(self, token, chat_id):
         super().__init__()
@@ -49,7 +52,6 @@ def main():
     logging_level = env.str("LOGGING_LEVEL", "WARNING")
 
     logging.basicConfig(level=logging_level)
-    logger = logging.getLogger("bot")
     logger.addHandler(TelegramLogsHandler(tg_bot_token, tg_chat_id))
 
     polling_timeout_sec = 60
