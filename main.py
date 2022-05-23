@@ -27,7 +27,7 @@ def format_message(response):
 
     for attempt in response["new_attempts"]:
         if attempt["is_negative"]:
-            result = "Всё круто, но надо кое-чего поправить =)"
+            result = "Надо кое-чего поправить."
         else:
             result = "Работа принята, можно переходить к следующему уроку!"
 
